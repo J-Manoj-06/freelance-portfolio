@@ -117,14 +117,14 @@ function FloatingForms({ intensity, simplified }) {
   )
 }
 
-function SpaceScene({ intensity, simplified }) {
+function SpaceScene({ intensity, simplified, reduceMotion }) {
   const groupRef = useRef()
   const glowRef = useRef()
 
   useFrame((state, delta) => {
     const { mouse, camera, clock } = state
-    const targetX = mouse.x * 0.35
-    const targetY = mouse.y * 0.25
+    const targetX = reduceMotion ? 0 : mouse.x * 0.35
+    const targetY = reduceMotion ? 0 : mouse.y * 0.25
 
     camera.position.x += (targetX - camera.position.x) * 0.045
     camera.position.y += (targetY - camera.position.y) * 0.045
@@ -136,8 +136,8 @@ function SpaceScene({ intensity, simplified }) {
     }
 
     if (glowRef.current) {
-      glowRef.current.position.x = mouse.x * 5.4
-      glowRef.current.position.y = mouse.y * 2.8
+      glowRef.current.position.x = reduceMotion ? 0 : mouse.x * 5.4
+      glowRef.current.position.y = reduceMotion ? 0 : mouse.y * 2.8
       glowRef.current.position.z = -2.8
       glowRef.current.intensity = 0.58 * intensity
     }
@@ -163,14 +163,22 @@ function SpaceScene({ intensity, simplified }) {
 function SpaceBackground({ activeSection }) {
   const [isReady, setIsReady] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [reduceMotion, setReduceMotion] = useState(false)
 
   useEffect(() => {
     setIsReady(supportsWebGL())
     const mq = window.matchMedia('(max-width: 1023px)')
+    const reducedMq = window.matchMedia('(prefers-reduced-motion: reduce)')
     const update = () => setIsMobile(mq.matches)
+    const updateMotion = () => setReduceMotion(reducedMq.matches)
     update()
+    updateMotion()
     mq.addEventListener('change', update)
-    return () => mq.removeEventListener('change', update)
+    reducedMq.addEventListener('change', updateMotion)
+    return () => {
+      mq.removeEventListener('change', update)
+      reducedMq.removeEventListener('change', updateMotion)
+    }
   }, [])
 
   const intensity = useMemo(() => {
@@ -187,10 +195,14 @@ function SpaceBackground({ activeSection }) {
     <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
       <Canvas
         camera={{ position: [0, 0, 4.8], fov: 58 }}
-        dpr={[1, 1.6]}
+        dpr={[1, reduceMotion ? 1.2 : 1.6]}
         gl={{ antialias: !isMobile, alpha: true, powerPreference: 'high-performance' }}
       >
-        <SpaceScene intensity={intensity} simplified={isMobile} />
+        <SpaceScene
+          intensity={reduceMotion ? Math.min(intensity, 0.55) : intensity}
+          simplified={isMobile || reduceMotion}
+          reduceMotion={reduceMotion}
+        />
       </Canvas>
     </div>
   )

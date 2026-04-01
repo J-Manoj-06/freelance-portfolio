@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import {
   ArrowUpRight,
   CheckCircle2,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Mail,
@@ -146,12 +147,13 @@ function App() {
         <section id="home" className="relative isolate min-h-screen pt-28">
           <div className="floating-blob left-[8%] top-36 h-48 w-48" />
           <div className="floating-blob right-[10%] top-64 h-64 w-64 animation-delay-2" />
+          <div className="hero-orb pointer-events-none absolute left-1/2 top-[22%] z-0 h-72 w-72 -translate-x-1/2 rounded-full" />
           <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-5 pb-24 pt-20 text-center md:px-8">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="space-y-8"
+              className="hero-content relative z-10 space-y-8"
             >
               <p className="inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-slate-300">
                 Premium Freelance Digital Studio
@@ -175,7 +177,7 @@ function App() {
 
               <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-300">
                 {['Trusted by 50+ clients', 'Fast execution', 'Design-led strategy'].map((badge) => (
-                  <span key={badge} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2">
+                  <span key={badge} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:border-accent/45">
                     <CheckCircle2 size={14} className="text-accent" />
                     {badge}
                   </span>
@@ -183,9 +185,21 @@ function App() {
               </div>
             </motion.div>
           </div>
+
+          <motion.a
+            href="#about"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 0.6 }}
+            className="scroll-indicator absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs uppercase tracking-[0.24em] text-slate-300 backdrop-blur-md md:inline-flex"
+          >
+            Scroll
+            <ChevronDown size={14} className="text-accent" />
+          </motion.a>
         </section>
 
-        <section id="about" className="mx-auto w-full max-w-7xl px-5 py-24 md:px-8">
+        <section id="about" className="relative isolate mx-auto w-full max-w-7xl px-5 py-24 md:px-8">
+          <div className="section-blur pointer-events-none absolute -left-28 top-16 h-64 w-64 rounded-full" />
           <SectionTitle
             eyebrow="About"
             title="Strategic Design Partner For Ambitious Brands"
@@ -194,7 +208,7 @@ function App() {
 
           <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch min-h-[500px]">
             <div className="flex flex-col gap-6 h-full">
-              <TiltCard className="flex-1 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl md:p-8 flex flex-col justify-between">
+              <TiltCard className="premium-panel flex-1 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl md:p-8 flex flex-col justify-between">
                 <div>
                   <h3 className="text-2xl font-semibold text-white">My Story</h3>
                   <p className="mt-4 text-slate-300">
@@ -218,7 +232,7 @@ function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.8 }}
-                className="flex-1 rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl md:p-8 flex flex-col justify-between"
+                className="premium-panel flex-1 rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl md:p-8 flex flex-col justify-between"
               >
                 <div>
                   <h3 className="text-2xl font-semibold text-white">Capabilities</h3>
@@ -255,7 +269,7 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.8 }}
-              className="h-full rounded-3xl border border-white/10 overflow-hidden"
+              className="premium-panel h-full rounded-3xl border border-white/10 overflow-hidden"
             >
               <img
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
@@ -285,7 +299,7 @@ function App() {
                     viewport={{ once: true, amount: 0.25 }}
                     transition={{ delay: index * 0.08, duration: 0.55 }}
                   >
-                    <TiltCard className="h-full rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.01] p-6 backdrop-blur-xl md:p-8">
+                    <TiltCard className="premium-panel light-sweep h-full rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.01] p-6 backdrop-blur-xl md:p-8">
                       <div className="mb-5 inline-flex rounded-2xl border border-white/10 bg-white/5 p-3 text-accent">
                         <Icon size={24} />
                       </div>
@@ -311,10 +325,10 @@ function App() {
               <button
                 key={filter}
                 onClick={() => setSelectedFilter(filter)}
-                className={`rounded-full border px-4 py-2 text-sm transition ${
+                className={`rounded-full border px-4 py-2 text-sm transition duration-300 ${
                   selectedFilter === filter
-                    ? 'border-accent bg-accent/20 text-white'
-                    : 'border-white/15 bg-white/5 text-slate-300 hover:border-white/30'
+                    ? 'scale-[1.03] border-accent bg-accent/20 text-white shadow-[0_0_30px_rgba(67,255,224,.2)]'
+                    : 'border-white/15 bg-white/5 text-slate-300 hover:-translate-y-0.5 hover:border-white/30'
                 }`}
               >
                 {filter}
@@ -333,16 +347,16 @@ function App() {
                   exit={{ opacity: 0, scale: 0.94 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <TiltCard className="cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04]" >
+                  <TiltCard className="premium-panel project-panel cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04]" >
                     <button onClick={() => setSelectedProject(project)} className="w-full text-left">
                       <div className="relative overflow-hidden">
                         <img
                           src={project.image}
                           alt={project.title}
                           loading="lazy"
-                          className="h-56 w-full object-cover transition duration-500 group-hover:scale-110"
+                          className="h-56 w-full object-cover transition duration-700 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent opacity-90 transition duration-500 group-hover:opacity-100" />
                       </div>
                       <div className="space-y-3 p-5">
                         <div className="flex items-center justify-between gap-3">
@@ -377,9 +391,9 @@ function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.08, duration: 0.55 }}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center backdrop-blur-xl"
+                  className="group premium-panel rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center backdrop-blur-xl"
                 >
-                  <div className="mx-auto mb-3 inline-flex rounded-xl border border-white/10 bg-white/5 p-2.5 text-accent">
+                  <div className="mx-auto mb-3 inline-flex rounded-xl border border-white/10 bg-white/5 p-2.5 text-accent shadow-[0_0_25px_rgba(67,255,224,.14)] transition duration-300 group-hover:scale-105">
                     <Icon size={20} />
                   </div>
                   <Counter value={item.value} suffix={item.suffix} />
@@ -405,13 +419,17 @@ function App() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="rounded-3xl border border-white/10 bg-white/[0.05] p-8 text-center shadow-[0_20px_60px_rgba(2,8,23,.45)] backdrop-blur-xl"
+                className="premium-panel rounded-3xl border border-white/10 bg-white/[0.05] p-8 text-center shadow-[0_20px_60px_rgba(2,8,23,.45)] backdrop-blur-xl"
               >
-                <img
+                <motion.img
+                  key={testimonials[testimonialIndex].avatar}
+                  initial={{ scale: 0.88, opacity: 0.65 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.45 }}
                   src={testimonials[testimonialIndex].avatar}
                   alt={testimonials[testimonialIndex].name}
                   loading="lazy"
-                  className="mx-auto h-16 w-16 rounded-full object-cover"
+                  className="mx-auto h-16 w-16 rounded-full object-cover ring-2 ring-accent/30"
                 />
                 <div className="mt-4 flex justify-center gap-1 text-yellow-300">
                   {Array.from({ length: testimonials[testimonialIndex].rating }).map((_, i) => (
@@ -461,7 +479,7 @@ function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ delay: index * 0.08, duration: 0.55 }}
-                className="relative rounded-3xl border border-white/10 bg-white/[0.04] p-6 md:ml-16"
+                className="premium-panel relative rounded-3xl border border-white/10 bg-white/[0.04] p-6 md:ml-16"
               >
                 <div className="absolute -left-[4.1rem] top-6 hidden h-8 w-8 items-center justify-center rounded-full border border-accent/50 bg-slate-900 text-sm font-semibold text-accent md:flex">
                   {index + 1}
@@ -473,7 +491,7 @@ function App() {
           </div>
         </section>
 
-        <section id="contact" className="mx-auto w-full max-w-7xl px-5 pb-24 pt-20 md:px-8">
+        <section id="contact" className="contact-layer relative isolate mx-auto w-full max-w-7xl px-5 pb-24 pt-20 md:px-8">
           <SectionTitle
             eyebrow="Contact"
             title="Let&apos;s Build Something Exceptional"
@@ -485,7 +503,7 @@ function App() {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              className="space-y-4 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl"
+              className="premium-panel space-y-4 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl"
             >
               {['Name', 'Email', 'Subject'].map((label) => (
                 <label key={label} className="block">
@@ -493,7 +511,7 @@ function App() {
                   <input
                     type={label === 'Email' ? 'email' : 'text'}
                     placeholder={`Your ${label.toLowerCase()}`}
-                    className="w-full rounded-xl border border-white/15 bg-slate-900/70 px-4 py-3 text-sm text-white outline-none transition focus:border-accent focus:shadow-[0_0_0_3px_rgba(67,255,224,.2)]"
+                    className="w-full rounded-xl border border-white/15 bg-slate-900/70 px-4 py-3 text-sm text-white outline-none transition duration-300 focus:-translate-y-0.5 focus:border-accent focus:shadow-[0_0_0_3px_rgba(67,255,224,.2)]"
                   />
                 </label>
               ))}
@@ -502,7 +520,7 @@ function App() {
                 <textarea
                   rows="5"
                   placeholder="Tell me about your project"
-                  className="w-full rounded-xl border border-white/15 bg-slate-900/70 px-4 py-3 text-sm text-white outline-none transition focus:border-accent focus:shadow-[0_0_0_3px_rgba(67,255,224,.2)]"
+                  className="w-full rounded-xl border border-white/15 bg-slate-900/70 px-4 py-3 text-sm text-white outline-none transition duration-300 focus:-translate-y-0.5 focus:border-accent focus:shadow-[0_0_0_3px_rgba(67,255,224,.2)]"
                 />
               </label>
               <GlowButton href="#">Send Message</GlowButton>
@@ -513,7 +531,7 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ delay: 0.1 }}
-              className="space-y-4 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl"
+              className="premium-panel space-y-4 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl"
             >
               <h3 className="text-2xl font-semibold text-white">Direct Contact</h3>
               <p className="text-slate-300">For project inquiries, partnerships, or premium retainers, contact me directly:</p>
@@ -535,7 +553,7 @@ function App() {
                     <a
                       key={item}
                       href="#"
-                      className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white transition hover:border-accent/50"
+                      className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white transition duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-[0_8px_20px_rgba(67,255,224,.15)]"
                     >
                       {item}
                     </a>
@@ -547,12 +565,12 @@ function App() {
         </section>
       </main>
 
-      <footer className="relative z-10 border-t border-white/10 px-5 py-8 md:px-8">
+      <footer className="footer-glow relative z-10 border-t border-white/10 px-5 py-8 md:px-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 text-sm text-slate-400 md:flex-row">
           <p>© {new Date().getFullYear()} NovaFreelance Studio. All rights reserved.</p>
           <div className="flex items-center gap-4">
             {['Home', 'Services', 'Work', 'Contact'].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="transition hover:text-white">
+              <a key={item} href={`#${item.toLowerCase()}`} className="transition duration-300 hover:-translate-y-0.5 hover:text-white">
                 {item}
               </a>
             ))}

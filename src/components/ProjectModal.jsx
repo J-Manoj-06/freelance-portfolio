@@ -9,16 +9,16 @@ function ProjectModal({ project, onClose }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[80] grid place-items-center bg-slate-950/80 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[80] grid place-items-center bg-slate-950/80 p-4 backdrop-blur-md"
           onClick={onClose}
         >
           <motion.article
-            initial={{ opacity: 0, y: 36, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            initial={{ opacity: 0, y: 40, scale: 0.93, rotateX: 5 }}
+            animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
             exit={{ opacity: 0, y: 24, scale: 0.96 }}
-            transition={{ type: 'spring', stiffness: 160, damping: 20 }}
+            transition={{ type: 'spring', stiffness: 150, damping: 19 }}
             onClick={(event) => event.stopPropagation()}
-            className="relative w-full max-w-3xl overflow-hidden rounded-3xl border border-white/15 bg-slate-900 shadow-[0_25px_80px_rgba(0,0,0,.55)]"
+            className="premium-panel relative w-full max-w-3xl overflow-hidden rounded-3xl border border-white/15 bg-slate-900/95 shadow-[0_25px_80px_rgba(0,0,0,.55)]"
           >
             <button
               onClick={onClose}
@@ -28,7 +28,10 @@ function ProjectModal({ project, onClose }) {
               <X size={18} />
             </button>
 
-            <img src={project.image} alt={project.title} loading="lazy" className="h-64 w-full object-cover" />
+            <div className="relative">
+              <img src={project.image} alt={project.title} loading="lazy" className="h-64 w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+            </div>
 
             <div className="space-y-4 p-6 md:p-8">
               <p className="text-xs uppercase tracking-[0.32em] text-accent">{project.category}</p>

@@ -5,11 +5,16 @@ import { navLinks } from '../data/siteData'
 function Navbar({ activeSection, mobileOpen, setMobileOpen, theme, setTheme }) {
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-slate-950/40 backdrop-blur-xl">
+      <header className="nav-shell fixed inset-x-0 top-0 z-50">
         <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 md:px-8">
-          <a href="#home" className="text-lg font-bold tracking-[0.16em] text-white">
+          <motion.a
+            href="#home"
+            whileHover={{ y: -1 }}
+            className="group relative text-lg font-bold tracking-[0.16em] text-white"
+          >
             NOVA<span className="text-accent">FREELANCE</span>
-          </a>
+            <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-accent to-cyan-300 transition-all duration-300 group-hover:w-full" />
+          </motion.a>
 
           <ul className="hidden items-center gap-7 lg:flex">
             {navLinks.map((item) => (
@@ -28,13 +33,13 @@ function Navbar({ activeSection, mobileOpen, setMobileOpen, theme, setTheme }) {
             <button
               aria-label="Toggle theme"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="rounded-full border border-white/15 bg-white/5 p-2 text-white transition hover:bg-white/15"
+              className="rounded-full border border-white/15 bg-white/5 p-2 text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/15"
             >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <a
               href="#contact"
-              className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-slate-950 transition hover:shadow-[0_0_30px_rgba(255,255,255,.45)]"
+              className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-slate-950 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(255,255,255,.45)]"
             >
               Let&apos;s Talk
             </a>
