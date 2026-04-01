@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   ArrowUpRight,
@@ -16,6 +16,8 @@ import ProjectModal from './components/ProjectModal'
 import SectionTitle from './components/SectionTitle'
 import TiltCard from './components/TiltCard'
 import { filters, processSteps, projects, services, stats, testimonials } from './data/siteData'
+
+const SpaceBackground = lazy(() => import('./components/SpaceBackground'))
 
 function Counter({ value, suffix = '' }) {
   const [current, setCurrent] = useState(0)
@@ -126,8 +128,11 @@ function App() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[var(--bg-base)] text-[var(--text-main)]">
-      <div className="ambient-grid pointer-events-none fixed inset-0 z-0" />
-      <div className="cursor-aura pointer-events-none fixed inset-0 z-0 hidden lg:block" />
+      <Suspense fallback={<div className="space-fallback pointer-events-none fixed inset-0 z-0" aria-hidden="true" />}>
+        <SpaceBackground activeSection={activeSection} />
+      </Suspense>
+      <div className="ambient-grid pointer-events-none fixed inset-0 z-[1]" />
+      <div className="cursor-aura pointer-events-none fixed inset-0 z-[2] hidden lg:block" />
 
       <Navbar
         activeSection={activeSection}

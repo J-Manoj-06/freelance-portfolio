@@ -83,6 +83,20 @@ h4 {
   opacity: 0.9;
 }
 
+.space-fallback {
+  background:
+    radial-gradient(circle at 25% 22%, rgba(41, 204, 255, 0.16), transparent 36%),
+    radial-gradient(circle at 75% 68%, rgba(117, 134, 255, 0.14), transparent 40%),
+    linear-gradient(160deg, #020611 0%, #060e22 40%, #030714 100%);
+}
+
+html[data-theme='light'] .space-fallback {
+  background:
+    radial-gradient(circle at 25% 22%, rgba(41, 204, 255, 0.13), transparent 38%),
+    radial-gradient(circle at 75% 68%, rgba(117, 134, 255, 0.11), transparent 42%),
+    linear-gradient(160deg, #ecf4ff 0%, #dde9fb 42%, #f3f8ff 100%);
+}
+
 .hero-shell {
   position: relative;
   aspect-ratio: 0.88;
