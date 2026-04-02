@@ -50,7 +50,6 @@ function Counter({ value, suffix = '' }) {
 
 function App() {
   const heroHeadline = 'I Build Futuristic Experiences That Win Premium Clients.'
-  const [theme, setTheme] = useState('dark')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [selectedFilter, setSelectedFilter] = useState('All')
@@ -61,8 +60,8 @@ function App() {
   const [typedHeadline, setTypedHeadline] = useState('')
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-  }, [theme])
+    document.documentElement.setAttribute('data-theme', 'dark')
+  }, [])
 
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)')
@@ -140,8 +139,6 @@ function App() {
         activeSection={activeSection}
         mobileOpen={mobileOpen}
         setMobileOpen={setMobileOpen}
-        theme={theme}
-        setTheme={setTheme}
       />
 
       <main className="relative z-10">

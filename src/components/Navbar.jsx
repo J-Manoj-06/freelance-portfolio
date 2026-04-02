@@ -1,8 +1,8 @@
-import { Menu, Moon, Sun, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { navLinks } from '../data/siteData'
 
-function Navbar({ activeSection, mobileOpen, setMobileOpen, theme, setTheme }) {
+function Navbar({ activeSection, mobileOpen, setMobileOpen }) {
   return (
     <>
       <header className="nav-shell fixed inset-x-0 top-0 z-50">
@@ -30,13 +30,6 @@ function Navbar({ activeSection, mobileOpen, setMobileOpen, theme, setTheme }) {
           </ul>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <button
-              aria-label="Toggle theme"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="rounded-full border border-white/15 bg-white/5 p-2 text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/15"
-            >
-              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
             <a
               href="#contact"
               className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-slate-950 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(255,255,255,.45)]"
@@ -88,13 +81,6 @@ function Navbar({ activeSection, mobileOpen, setMobileOpen, theme, setTheme }) {
               ))}
             </ul>
             <div className="mt-8 flex items-center gap-3">
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="rounded-full border border-white/15 bg-white/5 p-2 text-white"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
               <a href="#contact" className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-slate-950">
                 Hire Me
               </a>
