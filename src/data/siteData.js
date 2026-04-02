@@ -46,73 +46,52 @@ export const services = [
 export const projects = [
   {
     id: 1,
-    title: 'Aurora Finance Platform',
-    category: 'Web Design',
-    description: 'A fintech dashboard with cinematic motion and strong conversion architecture.',
+    title: 'TARAS 2K25',
+    category: 'Web / Event Platform',
+    filters: ['Web', 'Platform'],
+    liveUrl: 'https://taras2k25.netlify.app/',
+    previewUrl: 'https://taras2k25.netlify.app/',
     image:
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
-    stack: ['React', 'Framer Motion', 'Tailwind', 'Node'],
+      'https://images.unsplash.com/photo-1511578194003-00c80e42dc9b?auto=format&fit=crop&w=1400&q=80',
+    description:
+      'An interactive event platform designed with modern UI/UX principles, smooth animations, and responsive layouts to enhance user engagement and digital presence for large-scale events.',
+    stack: ['React', 'Tailwind CSS', 'Animations'],
     detail:
-      'Redesigned onboarding and analytics experience for a B2B fintech product. The new UI improved demo signups by 41% and shortened onboarding completion time by 27%.',
+      'A polished, responsive event platform built for scale, with immersive transitions and structured content flows that keep visitors engaged from landing to registration.',
   },
   {
     id: 2,
-    title: 'Pulse Commerce Suite',
-    category: 'UI/UX',
-    description: 'Premium shopping experience with rich product storytelling and adaptive layouts.',
+    title: 'Lenv - Education Platform',
+    category: 'Full Stack / Product',
+    filters: ['Product', 'Platform'],
+    liveUrl: 'https://lenv1.app/',
+    previewUrl: 'https://lenv1.app/',
     image:
-      'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1200&q=80',
-    stack: ['Figma', 'React', 'GSAP', 'Shopify'],
+      'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1400&q=80',
+    description:
+      'A scalable multi-role education platform connecting students, teachers, and institutions with structured dashboards, real-time interactions, and user-centric design.',
+    stack: ['Flutter / Web', 'Backend Integration', 'UI System Design'],
     detail:
-      'Led UI/UX for a direct-to-consumer commerce suite with advanced personalization. The project raised average order value by 19% through better product discovery.',
+      'Engineered for complex user journeys across academic roles, this product balances usability with robust backend connectivity and structured operational dashboards.',
   },
   {
     id: 3,
-    title: 'Vertex Studio Identity',
-    category: 'Branding',
-    description: 'A visual system and website for a modern creative production agency.',
+    title: 'Lenv Tech',
+    category: 'Product / SaaS / Landing System',
+    filters: ['Web', 'Product', 'Platform'],
+    liveUrl: 'https://lenv1.tech/',
+    previewUrl: 'https://lenv1.tech/',
     image:
-      'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80',
-    stack: ['Brand Strategy', 'Webflow', 'Motion', '3D'],
+      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80',
+    description:
+      'A refined product-level platform showcasing structured workflows, clean architecture, and modern interface design built for scalability and real-world deployment.',
+    stack: ['Modern Web Stack', 'UI/UX Systems', 'Scalable Architecture'],
     detail:
-      'Built a complete digital brand language with immersive visuals and storytelling sections to position the studio as a top-tier partner in competitive pitches.',
-  },
-  {
-    id: 4,
-    title: 'Helio Mobile Banking',
-    category: 'Mobile Apps',
-    description: 'A clean and secure mobile banking interface focused on confidence and speed.',
-    image:
-      'https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=1200&q=80',
-    stack: ['React Native', 'UX Research', 'Design System'],
-    detail:
-      'Designed end-to-end flows for transfers, cards, and spending insights. The final product reached a 4.8 average app store rating within the first quarter.',
-  },
-  {
-    id: 5,
-    title: 'Nova SaaS Launch Site',
-    category: 'Web Design',
-    description: 'A launch website blending narrative, social proof, and conversion-focused CTA sections.',
-    image:
-      'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80',
-    stack: ['Next.js', 'Tailwind', 'SEO', 'Analytics'],
-    detail:
-      'Created a high-performing marketing site with interactive demos and trust blocks. Resulted in 2.4x more qualified trial requests over 6 weeks.',
-  },
-  {
-    id: 6,
-    title: 'Orbit Experimental Lab',
-    category: 'Others',
-    description: 'An experimental concept lab with bold motion direction and interactive visual prototypes.',
-    image:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
-    stack: ['Three.js', 'Shaders', 'React', 'Creative Code'],
-    detail:
-      'Designed concept experiences used for investor demos and innovation showcases, helping the team secure two strategic product partnerships.',
+      'Designed as a product-grade platform with modular structure and deployment-first thinking, enabling cleaner growth paths for feature expansion and user acquisition.',
   },
 ]
 
-export const filters = ['All', 'Web Design', 'Mobile Apps', 'UI/UX', 'Branding', 'Others']
+export const filters = ['All', 'Web', 'Product', 'Platform']
 
 export const stats = [
   { label: 'Projects Delivered', value: 128, icon: BriefcaseBusiness },

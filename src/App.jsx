@@ -54,6 +54,7 @@ function App() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [selectedFilter, setSelectedFilter] = useState('All')
+  const [hoveredProjectId, setHoveredProjectId] = useState(null)
   const [selectedProject, setSelectedProject] = useState(null)
   const [testimonialIndex, setTestimonialIndex] = useState(0)
   const [isDesktop, setIsDesktop] = useState(false)
@@ -124,7 +125,7 @@ function App() {
 
   const filteredProjects = useMemo(() => {
     if (selectedFilter === 'All') return projects
-    return projects.filter((project) => project.category === selectedFilter)
+    return projects.filter((project) => project.filters.includes(selectedFilter))
   }, [selectedFilter])
 
   return (
@@ -315,12 +316,12 @@ function App() {
 
         <section id="work" className="mx-auto w-full max-w-7xl px-5 py-24 md:px-8">
           <SectionTitle
-            eyebrow="Portfolio"
-            title="Selected Work & Product Stories"
-            description="A curated showcase of digital products, websites, and brand experiences crafted for ambitious teams."
+            eyebrow="Showcase"
+            title="Featured Projects"
+            description="Real-world applications designed for performance, usability, and scale."
           />
 
-          <div className="mb-8 flex flex-wrap justify-center gap-3">
+          <div className="mb-10 flex flex-wrap justify-center gap-3">
             {filters.map((filter) => (
               <button
                 key={filter}
@@ -336,19 +337,36 @@ function App() {
             ))}
           </div>
 
-          <motion.div layout className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <motion.div layout className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             <AnimatePresence>
-              {filteredProjects.map((project) => (
+              {filteredProjects.map((project, index) => (
                 <motion.article
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 28, scale: 0.96 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, amount: 0.2 }}
                   exit={{ opacity: 0, scale: 0.94 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.52, delay: index * 0.08, ease: 'easeOut' }}
+                  animate={{ y: [0, -4, 0] }}
+                  onHoverStart={() => setHoveredProjectId(project.id)}
+                  onHoverEnd={() => setHoveredProjectId(null)}
                 >
-                  <TiltCard className="premium-panel project-panel cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04]" >
-                    <button onClick={() => setSelectedProject(project)} className="w-full text-left">
+                  <TiltCard className="project-showcase-card premium-panel project-panel overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04]">
+                    <div className="project-ambient-glow" aria-hidden="true" />
+                    <div
+                      onClick={() => setSelectedProject(project)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault()
+                          setSelectedProject(project)
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      className="group w-full cursor-pointer text-left"
+                      aria-label={`Open details for ${project.title}`}
+                    >
                       <div className="relative overflow-hidden">
                         <img
                           src={project.image}
@@ -357,22 +375,59 @@ function App() {
                           className="h-56 w-full object-cover transition duration-700 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent opacity-90 transition duration-500 group-hover:opacity-100" />
+                        <div className="project-edge-light absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100" />
+
+                        {isDesktop && hoveredProjectId === project.id && (
+                          <div className="absolute inset-3 overflow-hidden rounded-xl border border-white/20 bg-slate-950/80 backdrop-blur-sm">
+                            <iframe
+                              src={project.previewUrl}
+                              title={`${project.title} live preview`}
+                              loading="lazy"
+                              className="h-full w-full scale-[1.08] origin-top-left"
+                            />
+                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-transparent" />
+                            <p className="absolute left-3 top-3 rounded-full border border-white/20 bg-slate-950/70 px-2.5 py-1 text-[10px] uppercase tracking-[0.25em] text-accent">
+                              Live Preview
+                            </p>
+                          </div>
+                        )}
                       </div>
-                      <div className="space-y-3 p-5">
-                        <div className="flex items-center justify-between gap-3">
-                          <h3 className="text-lg font-semibold text-white">{project.title}</h3>
-                          <ArrowUpRight size={18} className="text-accent" />
-                        </div>
-                        <p className="text-sm text-slate-300">{project.description}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.stack.slice(0, 3).map((tag) => (
-                            <span key={tag} className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-xs text-slate-200">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
+                    </div>
+
+                    <div className="space-y-4 p-5">
+                      <p className="text-[11px] uppercase tracking-[0.3em] text-accent/85">{project.category}</p>
+                      <div className="flex items-center justify-between gap-3">
+                        <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+                        <ArrowUpRight size={18} className="text-accent" />
                       </div>
-                    </button>
+                      <p className="text-sm leading-relaxed text-slate-300">{project.description}</p>
+
+                      <div className="flex flex-wrap gap-2">
+                        {project.stack.map((tag) => (
+                          <span key={tag} className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-xs text-slate-200">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-wrap gap-3 pt-1">
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-accent/45 bg-accent/15 px-4 py-2 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-accent/25"
+                        >
+                          Live Demo
+                          <ArrowUpRight size={16} className="text-accent" />
+                        </a>
+                        <button
+                          onClick={() => setSelectedProject(project)}
+                          className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:border-white/35"
+                        >
+                          View Details
+                        </button>
+                      </div>
+                    </div>
                   </TiltCard>
                 </motion.article>
               ))}
