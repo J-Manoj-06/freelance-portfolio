@@ -54,10 +54,10 @@ export const projects = [
     image:
       'https://images.unsplash.com/photo-1511578194003-00c80e42dc9b?auto=format&fit=crop&w=1400&q=80',
     description:
-      'An interactive event platform designed with modern UI/UX principles, smooth animations, and responsive layouts to enhance user engagement and digital presence for large-scale events.',
+      'An interactive event platform for registrations, schedules, and announcements built with React and Tailwind CSS, designed to improve user engagement and digital reach for large-scale events.',
     stack: ['React', 'Tailwind CSS', 'Animations'],
     detail:
-      'A polished, responsive event platform built for scale, with immersive transitions and structured content flows that keep visitors engaged from landing to registration.',
+      'Developed as a production-ready web experience with responsive UI, animation-enhanced storytelling, and conversion-focused flows that move visitors from discovery to event participation.',
   },
   {
     id: 2,
@@ -69,10 +69,10 @@ export const projects = [
     image:
       'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1400&q=80',
     description:
-      'A scalable multi-role education platform connecting students, teachers, and institutions with structured dashboards, real-time interactions, and user-centric design.',
+      'A full stack developer project connecting students, teachers, and institutions through role-based dashboards, backend integration, and a user-centric education workflow.',
     stack: ['Flutter / Web', 'Backend Integration', 'UI System Design'],
     detail:
-      'Engineered for complex user journeys across academic roles, this product balances usability with robust backend connectivity and structured operational dashboards.',
+      'Built to support complex education journeys with scalable architecture, clear UI system design, and reliable data workflows for day-to-day academic operations.',
   },
   {
     id: 3,
@@ -84,10 +84,10 @@ export const projects = [
     image:
       'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80',
     description:
-      'A refined product-level platform showcasing structured workflows, clean architecture, and modern interface design built for scalability and real-world deployment.',
+      'A React developer and product engineering showcase featuring structured workflows, modern interface systems, and scalable architecture for SaaS deployment.',
     stack: ['Modern Web Stack', 'UI/UX Systems', 'Scalable Architecture'],
     detail:
-      'Designed as a product-grade platform with modular structure and deployment-first thinking, enabling cleaner growth paths for feature expansion and user acquisition.',
+      'Implemented as a modular SaaS-ready platform with clean architecture and deployment-first planning to support faster iteration, feature expansion, and long-term product growth.',
   },
 ]
 

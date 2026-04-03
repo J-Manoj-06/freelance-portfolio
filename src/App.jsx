@@ -50,7 +50,7 @@ function Counter({ value, suffix = '' }) {
 }
 
 function App() {
-  const heroHeadline = 'I Build Futuristic Experiences That Win Premium Clients.'
+  const heroHeadline = 'Freelance Web Developer, React Developer, and Full Stack Developer for Scalable Products.'
   const initialFormState = useMemo(
     () => ({
       name: '',
@@ -231,7 +231,7 @@ function App() {
               </h1>
 
               <p className="mx-auto max-w-2xl text-base text-slate-300 md:text-lg">
-                I design and develop high-impact websites with immersive motion, elegant UX, and conversion-focused strategy for founders, agencies, and modern brands.
+                I build portfolio website experiences and web development services with modern React architecture, polished UI systems, and full stack integration for founders, agencies, and growth teams.
               </p>
 
               <div className="flex flex-wrap justify-center gap-4">
@@ -269,7 +269,7 @@ function App() {
           <SectionTitle
             eyebrow="About"
             title="Strategic Design Partner For Ambitious Brands"
-            description="I combine visual direction, business logic, and front-end engineering to build digital products that feel luxurious and perform reliably under real client goals."
+            description="I work as a freelance web developer focused on React developer workflows and full stack developer delivery, combining visual direction with scalable engineering for real business outcomes."
           />
 
           <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch min-h-[500px]">
@@ -339,7 +339,7 @@ function App() {
             >
               <img
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
-                alt="Portfolio"
+                alt="Manoj, freelance web developer portfolio portrait"
                 className="w-full h-full object-cover"
               />
             </motion.div>
@@ -383,7 +383,7 @@ function App() {
           <SectionTitle
             eyebrow="Showcase"
             title="Featured Projects"
-            description="Real-world applications designed for performance, usability, and scale."
+            description="Portfolio website case studies built as real-world applications for performance, usability, and scalable product delivery."
           />
 
           <div className="mb-10 flex flex-wrap justify-center gap-3">
