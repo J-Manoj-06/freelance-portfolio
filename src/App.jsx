@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import emailjs from '@emailjs/browser'
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -50,6 +51,15 @@ function Counter({ value, suffix = '' }) {
 
 function App() {
   const heroHeadline = 'I Build Futuristic Experiences That Win Premium Clients.'
+  const initialFormState = useMemo(
+    () => ({
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    }),
+    [],
+  )
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [selectedFilter, setSelectedFilter] = useState('All')
@@ -58,6 +68,9 @@ function App() {
   const [testimonialIndex, setTestimonialIndex] = useState(0)
   const [isDesktop, setIsDesktop] = useState(false)
   const [typedHeadline, setTypedHeadline] = useState('')
+  const [contactForm, setContactForm] = useState(initialFormState)
+  const [isSending, setIsSending] = useState(false)
+  const [formStatus, setFormStatus] = useState({ type: '', message: '' })
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', 'dark')
@@ -126,6 +139,61 @@ function App() {
     if (selectedFilter === 'All') return projects
     return projects.filter((project) => project.filters.includes(selectedFilter))
   }, [selectedFilter])
+
+  const handleContactChange = (event) => {
+    const { name, value } = event.target
+    setContactForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  const handleContactSubmit = async (event) => {
+    event.preventDefault()
+    if (isSending) return
+
+    setFormStatus({ type: '', message: '' })
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+    if (!serviceId || !templateId || !publicKey) {
+      setFormStatus({
+        type: 'error',
+        message: 'Email service is not configured. Please add EmailJS environment variables.',
+      })
+      return
+    }
+
+    try {
+      setIsSending(true)
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: contactForm.name,
+          from_email: contactForm.email,
+          reply_to: contactForm.email,
+          subject: contactForm.subject,
+          message: contactForm.message,
+        },
+        {
+          publicKey,
+        },
+      )
+
+      setFormStatus({ type: 'success', message: 'Message sent successfully!' })
+      setContactForm(initialFormState)
+    } catch {
+      setFormStatus({
+        type: 'error',
+        message: 'Failed to send message. Please try again in a moment.',
+      })
+    } finally {
+      setIsSending(false)
+    }
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[var(--bg-base)] text-[var(--text-main)]">
@@ -556,13 +624,18 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               className="premium-panel space-y-4 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl"
+              onSubmit={handleContactSubmit}
             >
               {['Name', 'Email', 'Subject'].map((label) => (
                 <label key={label} className="block">
                   <span className="mb-2 block text-sm text-slate-300">{label}</span>
                   <input
+                    name={label.toLowerCase()}
                     type={label === 'Email' ? 'email' : 'text'}
                     placeholder={`Your ${label.toLowerCase()}`}
+                    value={contactForm[label.toLowerCase()]}
+                    onChange={handleContactChange}
+                    required
                     className="w-full rounded-xl border border-white/15 bg-slate-900/70 px-4 py-3 text-sm text-white outline-none transition duration-300 focus:-translate-y-0.5 focus:border-accent focus:shadow-[0_0_0_3px_rgba(67,255,224,.2)]"
                   />
                 </label>
@@ -570,12 +643,56 @@ function App() {
               <label className="block">
                 <span className="mb-2 block text-sm text-slate-300">Message</span>
                 <textarea
+                  name="message"
                   rows="5"
                   placeholder="Tell me about your project"
+                  value={contactForm.message}
+                  onChange={handleContactChange}
+                  required
                   className="w-full rounded-xl border border-white/15 bg-slate-900/70 px-4 py-3 text-sm text-white outline-none transition duration-300 focus:-translate-y-0.5 focus:border-accent focus:shadow-[0_0_0_3px_rgba(67,255,224,.2)]"
                 />
               </label>
-              <GlowButton href="#">Send Message</GlowButton>
+
+              {formStatus.message && (
+                <p
+                  className={`rounded-xl border px-4 py-3 text-sm ${
+                    formStatus.type === 'success'
+                      ? 'border-emerald-300/35 bg-emerald-400/10 text-emerald-200'
+                      : 'border-rose-300/35 bg-rose-400/10 text-rose-200'
+                  }`}
+                  role="status"
+                >
+                  {formStatus.message}
+                </p>
+              )}
+
+              <motion.button
+                type="submit"
+                disabled={isSending}
+                whileHover={isSending ? {} : { scale: 1.02, y: -2 }}
+                whileTap={isSending ? {} : { scale: 0.98 }}
+                className="group relative inline-flex w-full items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-accent to-cyan-300 px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_8px_40px_rgba(67,255,224,.35)] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                <span className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100">
+                  <span className="absolute -left-16 top-0 h-full w-12 rotate-12 bg-white/30 blur-md transition-transform duration-700 group-hover:translate-x-[260%]" />
+                </span>
+                <span className="relative z-10 inline-flex items-center gap-2">
+                  {isSending ? (
+                    <>
+                      Sending
+                      <motion.span
+                        animate={{ opacity: [0.25, 1, 0.25] }}
+                        transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
+                        className="inline-flex"
+                      >
+                        ...
+                      </motion.span>
+                    </>
+                  ) : (
+                    'Send Message'
+                  )}
+                </span>
+              </motion.button>
             </motion.form>
 
             <motion.div
