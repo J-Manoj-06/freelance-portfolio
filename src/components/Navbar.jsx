@@ -12,7 +12,7 @@ function Navbar({ activeSection, mobileOpen, setMobileOpen }) {
             whileHover={{ y: -1 }}
             className="group relative text-lg font-bold tracking-[0.16em] text-white"
           >
-            NOVA<span className="text-accent">FREELANCE</span>
+              DRANZER<span className="text-accent">FREELANCE</span>
             <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-accent to-cyan-300 transition-all duration-300 group-hover:w-full" />
           </motion.a>
 

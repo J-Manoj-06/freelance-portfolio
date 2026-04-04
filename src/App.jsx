@@ -706,7 +706,7 @@ function App() {
               <p className="text-slate-300">For project inquiries, partnerships, or premium retainers, contact me directly:</p>
               <div className="space-y-3 pt-3">
                 <p className="flex items-center gap-3 text-slate-200">
-                  <Mail size={16} className="text-accent" /> hello@novafreelance.studio
+                  <Mail size={16} className="text-accent" /> hello@dranzerfreelance.studio
                 </p>
                 <p className="flex items-center gap-3 text-slate-200">
                   <Phone size={16} className="text-accent" /> +91 98765 43210
@@ -736,7 +736,7 @@ function App() {
 
       <footer className="footer-glow relative z-10 border-t border-white/10 px-5 py-8 md:px-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 text-sm text-slate-400 md:flex-row">
-          <p>© {new Date().getFullYear()} NovaFreelance Studio. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Dranzer Freelance Studio. All rights reserved.</p>
           <div className="flex items-center gap-4">
             {['Home', 'Services', 'Work', 'Contact'].map((item) => (
               <a key={item} href={`#${item.toLowerCase()}`} className="transition duration-300 hover:-translate-y-0.5 hover:text-white">

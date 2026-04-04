@@ -103,7 +103,7 @@ export const stats = [
 export const testimonials = [
   {
     name: 'Arianna Vale',
-    role: 'Founder, Nova Labs',
+    role: 'Founder, Dranzer Labs',
     feedback:
       'The site feels premium in every interaction. We closed enterprise leads within weeks because the brand experience finally matched our product quality.',
     avatar:
