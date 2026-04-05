@@ -187,10 +187,12 @@ function App() {
 
       setFormStatus({ type: 'success', message: 'Message sent successfully!' })
       setContactForm(initialFormState)
-    } catch {
+    } catch (error) {
+      console.error('EmailJS send failed:', error)
+      const details = error?.text || error?.message || 'Failed to send message. Please try again in a moment.'
       setFormStatus({
         type: 'error',
-        message: 'Failed to send message. Please try again in a moment.',
+        message: details,
       })
     } finally {
       setIsSending(false)
@@ -274,7 +276,7 @@ function App() {
             description="I work as a freelance web developer focused on React developer workflows and full stack developer delivery, combining visual direction with scalable engineering for real business outcomes."
           />
 
-          <div className="grid gap-3 lg:grid-cols-2 lg:items-stretch">
+          <div className="grid gap-3 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
             <div className="flex h-full flex-col gap-3">
               <TiltCard className="premium-panel flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl md:p-5">
                 <div>
@@ -337,12 +339,12 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.8 }}
-              className="premium-panel overflow-hidden rounded-3xl border border-white/10"
+              className="premium-panel overflow-hidden rounded-3xl border border-white/10 bg-slate-950/45 lg:justify-self-end lg:max-w-[420px]"
             >
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+                src="/human.jpeg"
                 alt="Manoj, freelance web developer portfolio portrait"
-                className="h-[380px] w-full object-cover md:h-[420px] lg:h-[460px]"
+                className="h-[380px] w-full object-contain object-top md:h-[470px] lg:h-[460px] lg:object-cover lg:object-center"
               />
             </motion.div>
           </div>
@@ -708,28 +710,14 @@ function App() {
               <p className="text-slate-300">For project inquiries, partnerships, or premium retainers, contact me directly:</p>
               <div className="space-y-3 pt-3">
                 <p className="flex items-center gap-3 text-slate-200">
-                  <Mail size={16} className="text-accent" /> hello@dranzerfreelance.studio
+                  <Mail size={16} className="text-accent" /> giridharanjj@gmail.com
                 </p>
                 <p className="flex items-center gap-3 text-slate-200">
-                  <Phone size={16} className="text-accent" /> +91 98765 43210
+                  <Phone size={16} className="text-accent" /> 9363477735
                 </p>
                 <p className="flex items-center gap-3 text-slate-200">
-                  <MapPin size={16} className="text-accent" /> Bangalore, India
+                  <MapPin size={16} className="text-accent" /> Chennai, India
                 </p>
-              </div>
-              <div className="pt-3">
-                <p className="mb-3 text-sm uppercase tracking-[0.24em] text-slate-400">Social</p>
-                <div className="flex gap-3">
-                  {['LinkedIn', 'Dribbble', 'Behance', 'X'].map((item) => (
-                    <a
-                      key={item}
-                      href="#"
-                      className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white transition duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-[0_8px_20px_rgba(67,255,224,.15)]"
-                    >
-                      {item}
-                    </a>
-                  ))}
-                </div>
               </div>
             </motion.div>
           </div>

@@ -29,7 +29,7 @@ function StarField({ visibleCount, totalCount, intensity }) {
     }
 
     return { positions: nextPositions, speeds: nextSpeeds }
-  }, [count])
+  }, [totalCount])
 
   useFrame(() => {
     const geometry = pointsRef.current?.geometry
