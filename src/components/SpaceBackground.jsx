@@ -13,14 +13,14 @@ function supportsWebGL() {
   }
 }
 
-function StarField({ count, intensity }) {
+function StarField({ visibleCount, totalCount, intensity }) {
   const pointsRef = useRef()
 
   const { positions, speeds } = useMemo(() => {
-    const nextPositions = new Float32Array(count * 3)
-    const nextSpeeds = new Float32Array(count)
+    const nextPositions = new Float32Array(totalCount * 3)
+    const nextSpeeds = new Float32Array(totalCount)
 
-    for (let i = 0; i < count; i += 1) {
+    for (let i = 0; i < totalCount; i += 1) {
       const i3 = i * 3
       nextPositions[i3] = (Math.random() - 0.5) * 36
       nextPositions[i3 + 1] = (Math.random() - 0.5) * 20
@@ -36,7 +36,7 @@ function StarField({ count, intensity }) {
     if (!geometry) return
 
     const attribute = geometry.attributes.position
-    for (let i = 0; i < count; i += 1) {
+    for (let i = 0; i < visibleCount; i += 1) {
       const i3 = i * 3
       const depthFactor = Math.min(1.8, Math.max(0.35, Math.abs(attribute.array[i3 + 2]) / 20))
       attribute.array[i3 + 2] += speeds[i] * depthFactor
@@ -48,6 +48,7 @@ function StarField({ count, intensity }) {
     }
 
     attribute.needsUpdate = true
+    geometry.setDrawRange(0, visibleCount)
   })
 
   return (
@@ -55,7 +56,7 @@ function StarField({ count, intensity }) {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={positions.length / 3}
+          count={totalCount}
           array={positions}
           itemSize={3}
         />
@@ -153,7 +154,7 @@ function SpaceScene({ intensity, simplified, reduceMotion }) {
       <pointLight ref={glowRef} intensity={0.45 * intensity} color="#5dd8ff" distance={16} decay={2.2} />
 
       <group ref={groupRef}>
-        <StarField count={simplified ? 110 : 240} intensity={intensity} />
+        <StarField visibleCount={simplified ? 110 : 240} totalCount={240} intensity={intensity} />
         <FloatingForms intensity={intensity} simplified={simplified} />
       </group>
     </>

@@ -172,7 +172,9 @@ function App() {
         serviceId,
         templateId,
         {
+          name: contactForm.name,
           from_name: contactForm.name,
+          email: contactForm.email,
           from_email: contactForm.email,
           reply_to: contactForm.email,
           subject: contactForm.subject,
@@ -264,7 +266,7 @@ function App() {
           </motion.a>
         </section>
 
-        <section id="about" className="relative isolate mx-auto w-full max-w-7xl px-5 py-24 md:px-8">
+        <section id="about" className="relative isolate mx-auto w-full max-w-7xl px-5 py-10 md:px-8 md:py-12">
           <div className="section-blur pointer-events-none absolute -left-28 top-16 h-64 w-64 rounded-full" />
           <SectionTitle
             eyebrow="About"
@@ -272,21 +274,21 @@ function App() {
             description="I work as a freelance web developer focused on React developer workflows and full stack developer delivery, combining visual direction with scalable engineering for real business outcomes."
           />
 
-          <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch min-h-[500px]">
-            <div className="flex flex-col gap-6 h-full">
-              <TiltCard className="premium-panel flex-1 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl md:p-8 flex flex-col justify-between">
+          <div className="grid gap-3 lg:grid-cols-2 lg:items-stretch">
+            <div className="flex h-full flex-col gap-3">
+              <TiltCard className="premium-panel flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl md:p-5">
                 <div>
                   <h3 className="text-2xl font-semibold text-white">My Story</h3>
                   <p className="mt-4 text-slate-300">
                     Over the past 8 years, I have helped startups, agencies, and enterprise teams launch polished websites and products that look exceptional and drive measurable growth.
                   </p>
                 </div>
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-3">
                     <p className="text-xs uppercase tracking-[0.28em] text-slate-400">Experience</p>
                     <p className="mt-2 text-2xl font-semibold text-white">8+ Years</p>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+                  <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-3">
                     <p className="text-xs uppercase tracking-[0.28em] text-slate-400">Core Stack</p>
                     <p className="mt-2 text-2xl font-semibold text-white">React / Motion</p>
                   </div>
@@ -298,11 +300,11 @@ function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.8 }}
-                className="premium-panel flex-1 rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl md:p-8 flex flex-col justify-between"
+                className="premium-panel flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-xl md:p-5"
               >
                 <div>
                   <h3 className="text-2xl font-semibold text-white">Capabilities</h3>
-                  <div className="mt-6 space-y-5">
+                  <div className="mt-3 space-y-3">
                     {[
                       ['UI/UX Strategy', 95],
                       ['Front-end Engineering', 92],
@@ -335,12 +337,12 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.8 }}
-              className="premium-panel h-full rounded-3xl border border-white/10 overflow-hidden"
+              className="premium-panel overflow-hidden rounded-3xl border border-white/10"
             >
               <img
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
                 alt="Manoj, freelance web developer portfolio portrait"
-                className="w-full h-full object-cover"
+                className="h-[380px] w-full object-cover md:h-[420px] lg:h-[460px]"
               />
             </motion.div>
           </div>
